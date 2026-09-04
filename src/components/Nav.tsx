@@ -57,7 +57,9 @@ export default function Nav() {
         <div className="flex items-center gap-4">
           <Clock className="hidden text-xs text-paper/80 sm:inline" />
           <a
-            href="mailto:yash.tushar13@gmail.com"
+            href="https://www.linkedin.com/messaging/compose/?to=yash-rane1308"
+            target="_blank"
+            rel="noopener noreferrer"
             className="rounded-full border border-line px-3 py-1.5 font-mono text-[11px] uppercase tracking-widest text-paper transition-colors hover:border-lime hover:text-lime"
           >
             Open to ship
