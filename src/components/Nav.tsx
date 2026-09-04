@@ -31,14 +31,20 @@ export default function Nav() {
           scrolled ? "bg-ink/70 backdrop-blur-md" : "bg-transparent"
         }`}
       >
-        <Link href="/" className="group flex items-center gap-2 font-mono text-sm tracking-tight">
+        <a
+          href="https://www.linkedin.com/in/yash-rane1308"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group flex items-center gap-2 font-mono text-sm tracking-tight"
+        >
           <span className="relative flex h-2 w-2">
             <span className="absolute inline-flex h-full w-full rounded-full bg-lime animate-pulse-ring" />
             <span className="relative inline-flex h-2 w-2 rounded-full bg-lime" />
           </span>
-          <span className="text-paper">yash</span>
-          <span className="text-mute transition-colors group-hover:text-lime">.rane</span>
-        </Link>
+          <span className="text-mute transition-colors group-hover:text-lime">in/</span>
+          <span className="text-paper">yash-rane1308</span>
+          <span className="text-mute transition-colors group-hover:text-lime">↗</span>
+        </a>
 
         <nav className="hidden items-center gap-7 md:flex">
           {links.map((l) => (
@@ -54,7 +60,7 @@ export default function Nav() {
             href="mailto:yash.tushar13@gmail.com"
             className="rounded-full border border-line px-3 py-1.5 font-mono text-[11px] uppercase tracking-widest text-paper transition-colors hover:border-lime hover:text-lime"
           >
-            Open to work
+            Open to ship
           </a>
         </div>
       </div>
