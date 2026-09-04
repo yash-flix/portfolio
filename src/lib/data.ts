@@ -141,7 +141,7 @@ export const archive: ArchiveItem[] = [
 
 export const timeline = [
   { year: "2022", title: "HSC, Thakur College of Science and Commerce", body: "Finished school in Mumbai. Started writing code that other people used." },
-  { year: "2023", title: "B.Tech, AI & Data Science at VCET", body: "Vidyavardhini's College of Engineering & Technology. CGPA 8.5 so far, graduating 2027." },
+  { year: "2023", title: "B.Tech, AI & Data Science at VCET", body: "Vidyavardhini's College of Engineering & Technology. CGPA 9.02 so far, graduating 2027." },
   { year: "2024", title: "Web Developer Intern, Acmegrade", body: "Four full-stack apps on React, Express and MongoDB. Cut page load ~30% with query optimisation and code splitting." },
   { year: "2024 →", title: "Freelance full-stack developer", body: "Three-plus client sites on the MERN stack and AWS (S3, EC2, ECS Fargate). Backends handling 500+ concurrent requests." },
   { year: "2026 →", title: "AI Engineer & Business Operations, Internovo Ventures", body: "WhatsApp nurture agent, LangGraph property-search agent, and a builder portal in progress." },
@@ -152,7 +152,7 @@ export const principles = [
   { n: "01", title: "First principles over pattern matching.", body: "When something breaks I go down to the physics of the problem, not to the last Stack Overflow answer that looked similar." },
   { n: "02", title: "Life rewards action.", body: "Most of what I know came from shipping something too early and fixing it in public." },
   { n: "03", title: "Measure, then talk.", body: "Retrieval accuracy, latency, hallucination rate. If a number can be put on it, I put a number on it." },
-  { n: "04", title: "Read outside the field.", body: "Neuroscience and psychology explain more about how agents fail than most ML papers do." },
+  { n: "04", title: "Read outside the field.", body: "The brain solved memory, attention and retrieval long before we did. Neuroscience and psychology are where I steal my best ideas about agents." },
   { n: "05", title: "The body is part of the stack.", body: "Football, badminton, swimming, the gym. Thinking gets better when the machine running it is maintained." },
 ];
 
