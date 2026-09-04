@@ -16,7 +16,7 @@ export const socials = [
 ];
 
 export const marqueeItems = [
-  "LangGraph", "AWS Bedrock AgentCore", "RAG", "FAISS", "ChromaDB", "LangChain",
+  "LangGraph", "AWS Bedrock AgentCore", "RAG", "FAISS", "ChromaDB", "LangChain", "OpenTelemetry", "Langfuse",
   "Next.js", "React", "Node.js", "MongoDB", "PostgreSQL", "Docker", "Kubernetes",
   "Python", "TypeScript", "System design", "First principles", "Neuroscience",
 ];
@@ -106,16 +106,16 @@ export const projects: Project[] = [
     slug: "proptech",
     title: "Agents for real estate",
     kicker: "Current work · Internovo Ventures · Mumbai",
-    oneLiner: "Two agents in production, a builder portal in progress.",
+    oneLiner: "Two agents in production, a search harness underneath, a builder portal in progress.",
     description:
-      "A WhatsApp lead-nurture agent that has moved 250+ leads from cold to warm with autonomous follow-ups. A LangGraph property-search agent that reads portals, builder sites and the web, then fills a fixed schema per project: possession, amenities, carpet area, RERA number, builder, location, nearby infrastructure and description, with every fact linked to its source. Currently building a builder-focused portal on top of it.",
+      "A WhatsApp lead-nurture agent that has moved 250+ leads from cold to warm with autonomous follow-ups. A LangGraph property-search agent that reads portals, builder sites and the web, then fills a fixed schema per project: possession, amenities, carpet area, RERA number, builder, location, nearby infrastructure and description, with every fact linked to its source. Both sit on a search harness I built that mixes deterministic steps with tool-calling LLM stages, traced end to end with OpenTelemetry and Langfuse. Currently building a builder-focused portal on top of it, starting with a competitor-analysis agent that maps a builder's rivals and turns the findings into an analytics dashboard.",
     metrics: [
       { value: "250+", label: "leads cold → warm" },
       { value: "8", label: "fields extracted" },
-      { value: "Live", label: "in production" },
+      { value: "Traced", label: "OTel + Langfuse" },
     ],
-    stack: ["LangGraph", "WhatsApp API", "Python", "FastAPI", "Next.js", "Claude"],
-    pipeline: ["query", "discover projects", "read every source", "extract 8 fields", "cite source", "rank match", "portal"],
+    stack: ["LangGraph", "WhatsApp API", "Python", "FastAPI", "OpenTelemetry", "Langfuse", "Next.js", "Claude"],
+    pipeline: ["query", "deterministic filters", "tool calls", "LLM extract", "cite source", "trace to Langfuse", "portal + competitor dashboard"],
     badge: "Under NDA",
     tone: "#191919",
   },
@@ -144,7 +144,7 @@ export const timeline = [
   { year: "2023", title: "B.Tech, AI & Data Science at VCET", body: "Vidyavardhini's College of Engineering & Technology. CGPA 9.02 so far, graduating 2027." },
   { year: "2024", title: "Web Developer Intern, Acmegrade", body: "Four full-stack apps on React, Express and MongoDB. Cut page load ~30% with query optimisation and code splitting." },
   { year: "2024 →", title: "Freelance full-stack developer", body: "Three-plus client sites on the MERN stack and AWS (S3, EC2, ECS Fargate). Backends handling 500+ concurrent requests." },
-  { year: "2026 →", title: "AI Engineer & Business Operations, Internovo Ventures", body: "WhatsApp nurture agent, LangGraph property-search agent, and a builder portal in progress." },
+  { year: "2026 →", title: "AI Engineer & Business Operations, Internovo Ventures", body: "WhatsApp nurture agent, LangGraph property-search agent, a traced search harness (OpenTelemetry + Langfuse), and a builder portal with a competitor-analysis agent in progress." },
   { year: "2027", title: "Graduate", body: "Open to AI engineering roles where the agents have to work in production, not in a notebook." },
 ];
 
