@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
-import { Instrument_Serif, JetBrains_Mono, Space_Grotesk } from "next/font/google";
+import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import "./globals.css";
-import Cursor from "@/components/Cursor";
 import Intro from "@/components/Intro";
+import { MarkDefs } from "@/components/Mark";
 import Nav from "@/components/Nav";
 import { site } from "@/lib/data";
 
-const grotesk = Space_Grotesk({ subsets: ["latin"], weight: ["400", "500", "700"], variable: "--font-grotesk", display: "swap" });
+const geist = Geist({ subsets: ["latin"], variable: "--font-geist", display: "swap" });
+const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono", display: "swap" });
 const instrument = Instrument_Serif({ subsets: ["latin"], weight: "400", style: ["normal", "italic"], variable: "--font-instrument", display: "swap" });
-const jet = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-jet", display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -29,11 +29,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${grotesk.variable} ${instrument.variable} ${jet.variable} h-full`}>
+    <html lang="en" className={`${geist.variable} ${geistMono.variable} ${instrument.variable} h-full`}>
       <body className="min-h-full flex flex-col">
+        <MarkDefs />
         <Intro />
-        <Cursor />
-        <div className="grain" aria-hidden />
         <Nav />
         <main className="flex-1">{children}</main>
       </body>

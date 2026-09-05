@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, useInView, useMotionValue, useSpring } from "framer-motion";
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { motion, useInView } from "framer-motion";
+import { useEffect, useRef, type ReactNode } from "react";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -50,7 +50,7 @@ export function Words({
       {words.map((w, i) => (
         <span key={i} className="inline-block overflow-hidden align-bottom pb-[0.08em] -mb-[0.08em]">
           <motion.span
-            className={`inline-block ${w.accent ? "serif-accent text-lime" : ""}`}
+            className={`inline-block ${w.accent ? "text-lime" : ""}`}
             initial={{ y: "110%" }}
             animate={{ y: 0 }}
             transition={{ duration: 1, delay: delay + i * stagger, ease: EASE }}
@@ -64,68 +64,7 @@ export function Words({
   );
 }
 
-/** Element that gently follows the pointer. */
-export function Magnetic({ children, strength = 0.35, className }: { children: ReactNode; strength?: number; className?: string }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  const sx = useSpring(x, { stiffness: 220, damping: 18, mass: 0.4 });
-  const sy = useSpring(y, { stiffness: 220, damping: 18, mass: 0.4 });
 
-  return (
-    <motion.div
-      ref={ref}
-      className={`inline-block ${className ?? ""}`}
-      style={{ x: sx, y: sy }}
-      onPointerMove={(e) => {
-        const r = ref.current?.getBoundingClientRect();
-        if (!r) return;
-        x.set((e.clientX - (r.left + r.width / 2)) * strength);
-        y.set((e.clientY - (r.top + r.height / 2)) * strength);
-      }}
-      onPointerLeave={() => {
-        x.set(0);
-        y.set(0);
-      }}
-    >
-      {children}
-    </motion.div>
-  );
-}
-
-const GLYPHS = "!<>-_\\/[]{}=+*^?#░▒▓";
-
-/** Text that resolves from noise into the final string. */
-export function Scramble({ text, delay = 0, duration = 1100, className }: { text: string; delay?: number; duration?: number; className?: string }) {
-  const [out, setOut] = useState(text.replace(/[^\s]/g, " "));
-  useEffect(() => {
-    let raf = 0;
-    let start = 0;
-    const timer = setTimeout(() => {
-      const tick = (t: number) => {
-        if (!start) start = t;
-        const p = Math.min(1, (t - start) / duration);
-        const resolved = Math.floor(p * text.length);
-        let s = "";
-        for (let i = 0; i < text.length; i++) {
-          const ch = text[i];
-          if (ch === " ") s += " ";
-          else if (i < resolved) s += ch;
-          else s += GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
-        }
-        setOut(s);
-        if (p < 1) raf = requestAnimationFrame(tick);
-        else setOut(text);
-      };
-      raf = requestAnimationFrame(tick);
-    }, delay);
-    return () => {
-      clearTimeout(timer);
-      cancelAnimationFrame(raf);
-    };
-  }, [text, delay, duration]);
-  return <span className={className} aria-label={text}>{out}</span>;
-}
 
 /** Count-up number that starts when scrolled into view. */
 export function Counter({ value, prefix = "", suffix = "", className }: { value: number; prefix?: string; suffix?: string; className?: string }) {

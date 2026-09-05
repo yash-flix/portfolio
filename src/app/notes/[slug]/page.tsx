@@ -25,26 +25,26 @@ export default async function NotePage({ params }: Props) {
   const next = notes[(idx + 1) % notes.length];
 
   return (
-    <article className="px-5 pb-24 pt-32 md:px-8 md:pt-44">
-      <div className="mx-auto max-w-3xl">
+    <article className="wrap px-5 pb-24 pt-32 md:px-8 md:pt-44">
+      <div className="mx-auto max-w-2xl">
         <Reveal>
-          <Link href="/notes" className="eyebrow hover:!text-lime">← All notes</Link>
-          <div className="mt-8 flex flex-wrap items-center gap-3 font-mono text-[11px] uppercase tracking-widest text-mute">
+          <Link href="/notes" className="text-sm text-paper/60 transition-colors hover:text-paper">← All notes</Link>
+          <div className="mt-8 flex flex-wrap items-center gap-3 text-[11px] text-mute">
             <span>{note.date}</span>
             <span>·</span>
             <span>{note.readingTime}</span>
             {note.status === "draft" && (
               <>
                 <span>·</span>
-                <span className="rounded-full border border-line px-2 py-0.5 text-paper/70">draft</span>
+                <span className="rounded-full border border-line px-1.5 py-0.5 text-[10px] font-medium uppercase text-paper/70">draft</span>
               </>
             )}
           </div>
-          <h1 className="serif-accent mt-6 text-[clamp(2.4rem,6vw,4.8rem)] leading-[1.02] text-paper">{note.title}</h1>
-          <p className="mt-6 text-xl leading-relaxed text-paper/65">{note.dek}</p>
+          <h1 className="display-xl mt-5 text-paper">{note.title}</h1>
+          <p className="mt-5 text-lg leading-relaxed text-paper/65">{note.dek}</p>
         </Reveal>
 
-        <Reveal delay={0.15} className="prose-note mt-14 border-t border-line pt-12 text-[1.08rem] leading-[1.75] text-paper/85">
+        <Reveal delay={0.15} className="prose-note mt-12 border-t border-line pt-10 text-[1.02rem] leading-[1.75] text-paper/85">
           {note.body.map((b, i) => {
             if (b.startsWith("## ")) return <h2 key={i}>{b.slice(3)}</h2>;
             if (b.startsWith("> ")) return <blockquote key={i}>{b.slice(2)}</blockquote>;
@@ -53,8 +53,8 @@ export default async function NotePage({ params }: Props) {
         </Reveal>
 
         <div className="mt-20 border-t border-line pt-8">
-          <p className="eyebrow mb-3">Next</p>
-          <Link href={`/notes/${next.slug}`} className="serif-accent text-3xl text-paper transition-colors hover:text-lime md:text-4xl">
+          <p className="kicker mb-2">next</p>
+          <Link href={`/notes/${next.slug}`} className="font-serif text-2xl text-paper transition-colors hover:text-lime md:text-3xl">
             {next.title} →
           </Link>
         </div>

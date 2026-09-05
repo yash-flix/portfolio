@@ -4,6 +4,7 @@ import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useMemo, useState } from "react";
 import { mind, principles } from "@/lib/data";
+import Mark from "./Mark";
 import { Reveal } from "./motion";
 
 const C = 320;
@@ -50,28 +51,28 @@ export default function Mind() {
   const activeGroup = mind.find((g) => g.id === active)!;
 
   return (
-    <section id="mind" className="scroll-mt-24 px-5 py-24 md:px-8 md:py-32">
+    <section id="mind" className="wrap scroll-mt-24 px-5 py-20 md:px-8 md:py-24">
       <div className="grid gap-14 lg:grid-cols-12">
         <div className="lg:col-span-5">
           <Reveal>
-            <p className="eyebrow mb-4">Mind</p>
+            <p className="kicker mb-3">mind</p>
             <h2 className="display-lg">
-              A polymath <span className="serif-accent text-lime">in progress.</span>
+              A polymath <Mark kind="underline" tail=".">in progress</Mark>
             </h2>
-            <p className="mt-6 max-w-lg text-lg leading-relaxed text-paper/70">
+            <p className="mt-5 max-w-lg text-base leading-relaxed text-paper/65">
               Engineer by training, reader by habit, athlete by necessity. I am curious about how brains work,
               how people decide, and how to build machines that do both a little better. The graph on the right
               is the honest map.
             </p>
           </Reveal>
 
-          <ol className="mt-12 divide-y divide-line border-y border-line">
+          <ol className="mt-10 divide-y divide-line border-y border-line">
             {principles.map((p, i) => (
               <Reveal key={p.n} delay={i * 0.05}>
-                <li className="group grid gap-2 py-5 md:grid-cols-12">
+                <li className="group grid gap-2 py-4 md:grid-cols-12">
                   <span className="font-mono text-xs text-lime md:col-span-2">{p.n}</span>
                   <div className="md:col-span-10">
-                    <p className="text-lg font-medium tracking-tight text-paper">{p.title}</p>
+                    <p className="text-[15px] font-medium tracking-tight text-paper">{p.title}</p>
                     <p className="mt-1 text-sm leading-relaxed text-paper/60 transition-colors group-hover:text-paper/80">
                       {p.body}
                     </p>
@@ -84,7 +85,7 @@ export default function Mind() {
 
         <Reveal className="lg:col-span-7" delay={0.1}>
           <div
-            className="relative rounded-3xl border border-line bg-ink-2 p-4 md:p-8"
+            className="card relative p-4 md:p-6"
             onPointerEnter={() => setHover(true)}
             onPointerLeave={() => {
               setHover(false);
@@ -97,7 +98,7 @@ export default function Mind() {
                   key={g.id}
                   onPointerEnter={() => setActive(g.id)}
                   onClick={() => setActive(g.id)}
-                  className={`rounded-full border px-3 py-1 font-mono text-[11px] uppercase tracking-widest transition-colors ${
+                  className={`rounded-md border px-2.5 py-1 text-xs font-medium transition-colors ${
                     active === g.id ? "border-lime bg-lime text-ink" : "border-line text-paper/70 hover:border-paper/40"
                   }`}
                 >
@@ -204,7 +205,7 @@ export default function Mind() {
               </foreignObject>
             </svg>
 
-            <div className="mt-4 min-h-[76px] rounded-2xl border border-line bg-ink/60 p-4">
+            <div className="mt-4 min-h-[76px] rounded-xl border border-line bg-ink p-4">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={item ? item.label : active}
@@ -213,7 +214,7 @@ export default function Mind() {
                   exit={{ opacity: 0, y: -6 }}
                   transition={{ duration: 0.25 }}
                 >
-                  <p className="eyebrow mb-1">{item ? `${item.group} · ${item.label}` : activeGroup.label}</p>
+                  <p className="mb-1 text-[11px] text-mute">{item ? `${item.group} · ${item.label}` : activeGroup.label}</p>
                   <p className="text-sm leading-relaxed text-paper/85">
                     {item ? item.blurb : `${activeGroup.items.map((i) => i.label).join(" · ")}. Hover a node.`}
                   </p>

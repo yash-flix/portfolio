@@ -1,30 +1,21 @@
 @import "tailwindcss";
 
 @theme {
-  --color-ink: #070707;
-  --color-ink-2: #0d0d0d;
-  --color-ink-3: #141414;
+  --color-ink: #0a0a0a;
+  --color-ink-2: #111111;
+  --color-ink-3: #171717;
   --color-paper: #f2f2f0;
   --color-lime: #c6ff3d;
   --color-mute: #8a8a85;
-  --color-line: rgba(255, 255, 255, 0.09);
+  --color-line: rgba(255, 255, 255, 0.08);
 
-  --font-display: var(--font-grotesk), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-instrument), "Times New Roman", Georgia, serif;
-  --font-mono: var(--font-jet), ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
 
-  --animate-marquee: marquee 38s linear infinite;
-  --animate-pulse-ring: pulse-ring 2.4s ease-out infinite;
+  --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
   --animate-blink: blink 1.1s steps(2, start) infinite;
 
-  @keyframes marquee {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-  }
-  @keyframes pulse-ring {
-    0% { transform: scale(0.6); opacity: 0.9; }
-    100% { transform: scale(2.4); opacity: 0; }
-  }
   @keyframes blink {
     to { visibility: hidden; }
   }
@@ -50,55 +41,48 @@ body {
   overflow-x: hidden;
 }
 
-html.has-cursor, html.has-cursor a, html.has-cursor button { cursor: none; }
-
 ::selection { background: var(--color-lime); color: var(--color-ink); }
 
-/* Film grain overlay */
-.grain {
-  position: fixed;
-  inset: -50%;
-  width: 200%;
-  height: 200%;
-  pointer-events: none;
-  z-index: 70;
-  opacity: 0.055;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  animation: grain 0.6s steps(6) infinite;
-}
-@keyframes grain {
-  0%, 100% { transform: translate(0, 0); }
-  20% { transform: translate(-3%, 2%); }
-  40% { transform: translate(2%, -4%); }
-  60% { transform: translate(-1%, 3%); }
-  80% { transform: translate(3%, -1%); }
+/* Page column — everything sits inside this so margins match top to bottom */
+.wrap {
+  width: 100%;
+  max-width: 72rem;
+  margin-inline: auto;
 }
 
-/* Type helpers */
+/* Type helpers — serif headings at a restrained size, sans body */
 .display-xl {
-  font-size: clamp(3rem, 10.5vw, 10rem);
-  line-height: 0.92;
-  letter-spacing: -0.04em;
-  font-weight: 700;
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(2.6rem, 6vw, 4.6rem);
+  line-height: 1.02;
+  letter-spacing: -0.015em;
 }
 .display-lg {
-  font-size: clamp(2.4rem, 6.5vw, 6rem);
-  line-height: 0.95;
-  letter-spacing: -0.035em;
-  font-weight: 700;
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(2.1rem, 4.2vw, 3.4rem);
+  line-height: 1.06;
+  letter-spacing: -0.01em;
 }
 .display-md {
-  font-size: clamp(1.8rem, 3.6vw, 3.4rem);
-  line-height: 1.02;
-  letter-spacing: -0.03em;
-  font-weight: 700;
+  font-size: clamp(1.35rem, 2vw, 1.75rem);
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  font-weight: 600;
 }
 .eyebrow {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.14em;
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
+  color: var(--color-mute);
+}
+/* Lowercase serif section label, e.g. "why me?" */
+.kicker {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.05rem;
   color: var(--color-mute);
 }
 .serif-accent {
@@ -107,25 +91,32 @@ html.has-cursor, html.has-cursor a, html.has-cursor button { cursor: none; }
   font-weight: 400;
   letter-spacing: -0.01em;
 }
-.outline-text {
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(242, 242, 240, 0.28);
-}
 
 .hairline { border-color: var(--color-line); }
 
-/* Lime glow blob */
-.glow {
-  position: absolute;
-  border-radius: 9999px;
-  background: radial-gradient(closest-side, rgba(198, 255, 61, 0.22), rgba(198, 255, 61, 0) 70%);
-  filter: blur(20px);
-  pointer-events: none;
+/* Cards */
+.card {
+  border-radius: 1rem;
+  border: 1px solid var(--color-line);
+  background: var(--color-ink-2);
 }
 
-/* Marquee */
-.marquee-track { display: flex; width: max-content; animation: var(--animate-marquee); }
-.marquee:hover .marquee-track { animation-play-state: paused; }
+/* Small rotated sticker badge */
+.sticker {
+  position: absolute;
+  border-radius: 9999px;
+  border: 1px solid var(--color-line);
+  background: var(--color-ink-2);
+  padding: 0.3rem 0.45rem 0.2rem;
+  font-family: var(--font-display);
+  font-size: 10px;
+  line-height: 1;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--color-lime);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
 
 /* Long-form prose */
 .prose-note p { margin: 0 0 1.35em; }
@@ -140,7 +131,6 @@ html.has-cursor, html.has-cursor a, html.has-cursor button { cursor: none; }
 }
 .prose-note h2 {
   font-family: var(--font-serif);
-  font-style: italic;
   font-size: 1.9rem;
   letter-spacing: -0.01em;
   margin: 2.2em 0 0.7em;
