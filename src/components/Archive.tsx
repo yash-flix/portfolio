@@ -1,23 +1,54 @@
-import { archive } from "@/lib/data";
-import Mark from "./Mark";
+import { archive, site } from "@/lib/data";
+import { getContributions } from "@/lib/github";
+import Heatmap from "./Heatmap";
 import { Reveal } from "./motion";
 
-export default function Archive() {
+export default async function Archive() {
+  const contributions = await getContributions();
   return (
     <section id="archive" className="wrap scroll-mt-24 px-5 py-20 md:px-8">
-      <Reveal className="mb-6 flex items-end justify-between">
+      <Reveal className="mb-3 flex items-end justify-between">
         <div>
           <p className="kicker mb-3">archive</p>
-          <h2 className="display-lg">
-            46 repos. <Mark kind="marker">These</Mark> are worth opening.
-          </h2>
+          <p className="text-sm text-paper/65">
+            {contributions.total > 0 ? (
+              <>
+                <span className="font-medium text-paper">{contributions.total.toLocaleString("en-IN")} contributions</span> in the last year
+                across 46 public repos.
+              </>
+            ) : (
+              "46 public repos, most of them shipped in the open."
+            )}
+          </p>
         </div>
-        <a href="https://github.com/yash-flix" target="_blank" rel="noreferrer" className="hidden whitespace-nowrap text-sm font-medium text-paper/70 underline decoration-line underline-offset-2 transition-colors hover:text-paper hover:decoration-paper/50 md:block">
+        <a href={`https://github.com/${site.handle}`} target="_blank" rel="noreferrer" className="hidden whitespace-nowrap text-sm font-medium text-paper/70 underline decoration-line underline-offset-2 transition-colors hover:text-paper hover:decoration-paper/50 md:block">
           view all on GitHub
         </a>
       </Reveal>
 
-      <ul className="card divide-y divide-line overflow-hidden">
+      {contributions.days.length > 0 && (
+        <Reveal className="card mb-3 overflow-x-auto p-4 md:p-5">
+          <div className="min-w-[640px]">
+            <Heatmap contributions={contributions} />
+          </div>
+          <div className="mt-3 flex items-center justify-between text-[11px] text-mute">
+            <span>github.com/{site.handle}</span>
+            <span className="flex items-center gap-1.5">
+              less
+              {[0, 1, 2, 3, 4].map((l) => (
+                <span
+                  key={l}
+                  className="inline-block size-2.5 rounded-[2px]"
+                  style={{ background: l === 0 ? "rgba(242,242,240,0.07)" : "#c6ff3d", opacity: l === 0 ? 1 : [0, 0.3, 0.55, 0.8, 1][l] }}
+                />
+              ))}
+              more
+            </span>
+          </div>
+        </Reveal>
+      )}
+
+      <ul className="card scroll-list max-h-[26rem] divide-y divide-line overflow-y-auto">
         {archive.map((a, i) => (
           <Reveal key={a.name} delay={Math.min(i, 6) * 0.03}>
             <li>
